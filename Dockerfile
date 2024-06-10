@@ -3,8 +3,8 @@ RUN npm install -g npm@8
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
-COPY ..
-RUN npm build
+COPY . .
+RUN npm run build
 RUN npm install -g serve
 EXPOSE 5000
 CMD ["serve", "-s", "build", "-l", "5000"]
