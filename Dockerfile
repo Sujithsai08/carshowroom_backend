@@ -1,10 +1,20 @@
+# Use a Node.js base image with Alpine Linux
 FROM node:16-alpine
-RUN npm install -g npm@8
+
+# Set working directory
 WORKDIR /app
+
+# Copy package.json and package-lock.json
 COPY package*.json ./
-RUN npm install
+
+# Install npm dependencies
+RUN npm install --only=production
+
+# Copy application code
 COPY . .
-RUN npm run build
-RUN npm install -g serve
-EXPOSE 5000
-CMD ["serve", "-s", "build", "-l", "5000"]
+
+# Expose port
+EXPOSE 3000
+
+# Command to run the application
+CMD ["node", "index.js"]
